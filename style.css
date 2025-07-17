@@ -1,0 +1,2116 @@
+:root {
+  --bg1: #ffe0fa;
+  --bg2: #fcb6f6;
+  --accent1: #ff8fcf;
+  --accent2: #ffd2fc;
+  --border: #ffb6d5;
+  --text: #a4133c;
+  --header-bg: var(--accent1);
+  --header-text: var(--text);
+  --main-bg: linear-gradient(120deg, var(--bg1) 0%, var(--bg2) 100%);
+}
+/* Tüm elemanların kutu modelini düzeltir. Padding ve border, elemanın genişliği ve yüksekliğine dahil edilir. */
+* {
+  box-sizing: border-box;
+color:#FF1493;
+
+}
+body {
+  background: var(--main-bg);
+  font-family: 'Comic Sans MS', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden; /* Bu satırı ekleyin */
+}
+
+body {
+  background: var(--main-bg);
+  font-family: 'Comic Sans MS', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+.resim-kutusu {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Yukarıdan boşluk */
+}
+
+.resim-kutusu img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 30%; /* Daire yapar */
+  border: 10px solid #f17ea1; /* Çerçeve */
+}
+#profilResmi {
+  transition: transform 0.3s ease; /* animasyon */
+  cursor: pointer;
+}
+
+#profilResmi.buyuk {
+  transform: scale(2); /* 2 kat büyütme */
+  z-index: 999;
+}
+body.night {
+  --bg1: #18172a;
+  --bg2: #22213c;
+  --accent1: #39345e;
+  --accent2: #45406a;
+  --border: #6e6998;
+  --text: #f7eaff;
+  --header-bg: #242042;
+  --header-text: #ffe0fa;
+  --main-bg: linear-gradient(120deg, #18172a 0%, #22213c 100%);
+  background: var(--main-bg);
+}
+body.rainbow {
+  --bg1: #fff7e0;
+  --bg2: #e0ffe0;
+  --accent1: #ffd700;
+  --accent2: #b9eaff;
+  --border: #b967ff;
+  --text: #7c2ae8;
+  --header-bg: linear-gradient(90deg,#ff0000 0%,#ff9900 18%,#ffe066 36%,#0f0 60%,#7fcaff 80%,#b967ff 100%);
+  --header-text: #fff;
+  --main-bg: linear-gradient(120deg,#ffe066 0%, #7fff8f 50%, #7fcaff 100%);
+  background: var(--main-bg) !important;
+}
+
+header {
+  display: flex;
+  justify-content: space-between; /* İçindeki header-left ve diğer elementleri sola ve sağa hizalar */
+  align-items: center; /* Dikeyde ortala */
+  padding: 10px 20px; /* Üst/alt ve sol/sağ boşluklar */
+  background-color: var(--header-bg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  flex-wrap: wrap; /* Küçük ekranlarda alt alta geçmelerini sağlar */
+}
+
+
+/* Header'ın sol bölümü (dil seçici ve başlık için) */
+.header-left {
+  display: flex; /* İçindeki elemanları yan yana dizer */
+  align-items: center; /* Dikeyde ortala */
+  gap: 15px; /* Elemanlar arasına boşluk bırak */
+  /* Genişliği tam kaplamaması için esnekliğini kaldır */
+  flex-grow: 0;
+}
+
+
+.melisa-title {
+  flex: 1;
+  text-align: center;
+  font-size: 2em;
+  letter-spacing: 2.5px;
+  color: var(--header-text);
+  font-weight: bold;
+}
+
+.header-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 24px;
+}
+.home-btn {
+  background: var(--accent2);
+  color: var(--text);
+  border: none;
+  padding: 2px 5px;      /* Eskiden 7px 22px idi, küçültüldü */
+  border-radius: 20px;    /* Eskiden 20px idi */
+  font-size: 0.92em;      /* Eskiden 1em idi */
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background 0.2s;
+  order: 0;
+  box-shadow: 0 2px 10px #ffd2fc55;
+}
+.melisa-welcome-box h2 {
+  margin: 0 0 2px 0;
+  font-size: 1.44em;
+  color: #e84299;
+  font-family: inherit;
+}
+
+.theme-btna {
+  background: linear-gradient(90deg,#ff0000 0%,#ff9900 22%,#ff0 40%,#0f0 60%,#0ff 75%,#00f 90%,#90f 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3em;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  transition: box-shadow 0.2s,transform 0.15s;
+  box-shadow: 0 2px 10px #ffd2fc55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-btn:hover, .theme-btn.active {
+  box-shadow: 0 2px 18px #ffe06690;
+  transform: scale(1.13) rotate(-5deg);
+  border: 2px solid #ffe066;
+}
+
+.mode-btn {
+  background: var(--accent2);
+  color: var(--text);
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3em;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px #ffd2fc55;
+}
+
+/* Responsive düzeltme */
+@media (max-width:800px) {
+  .header-left { margin-left: 8px; }
+  .header-btns { margin-right: 8px; }
+  header { font-size: 1.1em; }
+}@media (max-width:800px) {
+  .header-left { margin-left: 8px; }
+  .header-btns { margin-right: 8px; }
+}
+.mode-btn:hover {
+  background: var(--accent1);
+  color: #fff;
+  transform: scale(1.13);
+}
+.theme-btn {
+  background: #000080;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3em;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  transition: box-shadow 0.2s,transform 0.15s;
+  box-shadow: 0 2px 10px #ffd2fc55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-btn:hover, .theme-btn.active {
+  box-shadow: 0 2px 18px #ffe06690;
+  transform: scale(1.13) rotate(-5deg);
+  border: 2px solid #ffe066;
+}
+body.rainbow .theme-btn {
+  border: 2.5px solid #ffe066;
+  box-shadow: 0 4px 20px #ffe066b0;
+  background: linear-gradient(90deg,#ffe066 0%,#b967ff 100%);
+  color: #a4133c;
+}
+body.rainbow header {
+  background: var(--header-bg);
+  color: #fff;
+}
+body.rainbow .home-btn,
+body.rainbow .mode-btn,
+body.rainbow .theme-btn {
+  background: #fff;
+  color: #7c2ae8;
+  border: 2px solid #ffd700;
+}
+body.rainbow .nav-game-btn {
+  background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+  color: #fff;
+  border: 2px solid #ffd700;
+  text-shadow: 0 1px 8px #2223;
+}
+body.rainbow .nav-game-btn.active {
+  background: #ffe066;
+  color: #7c2ae8;
+  border: 2px solid #b967ff;
+}
+
+body.rainbow .muzik-oynatici-container {
+  background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+}
+body.rainbow .kontroller button {
+background: #FFFF00;
+color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
+}
+
+
+body.rainbow .kontroller button:hover {
+background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+color: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+transform: translateY(-2px);
+box-shadow: 2px 2px 5px rgba(255,255,0,0.4);
+border: 1px solid #000080;
+font-weight: bold;
+}
+
+body.rainbow .ses-seviyesi-kontrol input[type="range"] {
+background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+}
+
+body.rainbow .ses-seviyesi-kontrol input[type="range"]::-webkit-slider-thumb {
+background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+}
+
+
+body.rainbow .melisa-welcome-box {
+background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+}
+
+body.rainbow .melisa-welcome-box h2, {
+color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
+}
+
+body.rainbow .melisa-welcome-msg {
+color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
+}
+body.rainbow .melisa-bottom-msg span {
+color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
+}
+
+
+
+body.rainbow #main-nav,  {
+background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+}
+body.rainbow .home-game-card {
+background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+}
+
+body.rainbow .melisa-bottom-msg {
+background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+}
+
+
+
+
+
+
+:root {
+  --bg1: #ffe0fa;
+  --bg2: #fcb6f6;
+  --accent1: #ff8fcf;
+  --accent2: #ffd2fc;
+  --border: #ffb6d5;
+  --text: #a4133c;
+  --header-bg: var(--accent1);
+  --header-text: var(--text);
+  --main-bg: linear-gradient(120deg, var(--bg1) 0%, var(--bg2) 100%);
+}
+body {
+  background: var(--main-bg);
+  font-family: 'Comic Sans MS', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+body.night {
+  --bg1: #18172a;
+  --bg2: #22213c;
+  --accent1: #39345e;
+  --accent2: #45406a;
+  --border: #6e6998;
+  --text: #f7eaff;
+  --header-bg: #242042;
+  --header-text: #ffe0fa;
+  --main-bg: linear-gradient(120deg, #18172a 0%, #22213c 100%);
+  background: var(--main-bg);
+}
+/* Menü */
+#main-nav {
+    display: flex; /* İçindeki öğeleri (butonları) Flexbox ile düzenle */
+    flex-wrap: wrap; /* Eğer sığmazlarsa alt satıra geçmelerini sağlar (5'li gruplama için gerekli) */
+    justify-content: center; /* Butonları yatayda (merkezde) hizalar */
+    align-items: center; /* Butonları dikeyde (satır içinde) ortalar */
+    gap: 15px; /* Butonlar arasına 15 piksel boşluk bırakır */
+    
+    /* İsteğe bağlı: Menü için maksimum genişlik belirleyerek düzeni daha kontrollü hale getirebiliriz. */
+    /* Bu genişlik, 5 butonun ve aralarındaki boşlukların rahatça sığabileceği bir değer olmalı. */
+    /* Yaklaşık 160px genişliğinde 5 buton ve 4*15px boşluk = (5*160) + (4*15) = 800 + 60 = 860px */
+    max-width: 1080px; /* Örnek değer, tarayıcı genişliğine göre ayarlayabilirsiniz */
+    margin: 20px auto; /* Menü kapsayıcısını sayfada yatayda ortalar ve üst/alttan boşluk verir */
+    padding: 10px; /* İç boşluk */
+    /* background-color: var(--bg2); /* Menü arka planı (isteğe bağlı) */
+    border-radius: 15px; /* Yuvarlak köşeler (isteğe bağlı) */
+}
+
+/* Her bir oyun butonunun stili */
+.nav-game-btn {
+    /* Mevcut stilleriniz (padding, border, border-radius, background-color vb.) */
+    
+    /* 5'li dizilim için her butonun genişliğini belirleyin */
+    /* Bu genişlik, 'max-width' ve 'gap' ile birlikte 5 butonun bir satıra sığmasını sağlar */
+    width: 200px; /* Örnek genişlik, içeriğe göre ayarlayabilirsiniz */
+    height: 50px; /* Butonun yüksekliği (içeriği ortalamak için önemlidir) */
+    
+    display: flex; /* Buton içindeki emoji ve yazıyı Flexbox ile düzenle */
+    flex-direction: column; /* Emoji ve yazıyı dikey olarak sırala (emoji üstte, yazı altta) */
+    justify-content: center; /* Butonun içinde dikeyde ortala */
+    align-items: center; /* Butonun içinde yatayda ortala */
+    text-align: center; /* Metin hizalaması */
+    
+    font-size: 1em; /* Genel font boyutu */
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--accent1);
+    color: white;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Buton içindeki metin için özel stil */
+.nav-game-btn span {
+    font-size: 0.85em; /* Metnin emojiye göre daha küçük olmasını sağlar */
+    margin-top: 5px; /* Emoji ile metin arasına boşluk bırakır */
+    display: block; /* Span'ı blok element yaparak kendi satırına al */
+}
+
+/* Butonun üzerine gelindiğinde ve aktif durumda stiller (mevcut stillerinizden alınmıştır) */
+.nav-game-btn:hover {
+    background-color: var(--text);
+    transform: translateY(-2px);
+}
+
+.nav-game-btn.active {
+    background-color: var(--text);
+    font-weight: bold;
+}
+.nav-game-btn:hover:not(.active) {
+  background: #ffe066;
+  color: #a4133c;
+  transform: scale(1.06);
+  box-shadow: 0 4px 18px #ffe06660;
+}
+body.night .nav-game-btn {
+  background: #39345e;
+  color: #ffd2fc;
+  box-shadow: 0 2px 18px #39345e77;
+}
+body.night .nav-game-btn.active {
+  background: #6e6998;
+  color: #fff;
+  box-shadow: 0 4px 24px #b967ff80;
+}
+body.night .nav-game-btn:hover:not(.active) {
+  background: #ffe066;
+  color: #39345e;
+}
+.nav-game-btn .nav-emoji {
+  font-size: 1.25em;
+  margin-right: 7px;
+}
+/* Ana Sayfa Kutuları */
+.melisa-welcome-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #ffe0fa;
+  border-radius: 22px;
+  box-shadow: 0 2px 18px #ffd2fc33;
+  padding: 22px 18px 18px 18px;
+  margin-bottom: 20px;
+  gap: 17px;
+  border: 2.2px solid #ffd2fc;
+}
+body.night .melisa-welcome-box {
+  background: #23213c;
+  color: #ffd2fc;
+  border-color: #6e6998;
+}
+.melisa-avatar {
+  font-size: 3.5em;
+  margin-right: 8px;
+  margin-bottom: 0;
+  user-select: none;
+}
+
+.melisa-welcome-msg {
+  font-size: 1.1em;
+  color: #7fcaff;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.home-game-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 19px;
+  /* justify-content: center; */ /* Bu satırı yorum satırı yapın veya silin */
+  justify-content: flex-start; /* Bu satırı ekleyin */
+  margin-bottom: 10px;
+margin-left: 20px;
+}
+.home-game-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px #ffd2fc33;
+  padding: 13px 14px 11px 14px;
+  min-width: 130px;
+  max-width: 180px;
+  min-height: 92px;
+  text-align: center;
+  flex: 1 1 170px;
+  border: 2px solid #ffd2fc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.14s, box-shadow 0.14s;
+  cursor: pointer;
+}
+.home-game-card:hover {
+  transform: scale(1.08) translateY(-4px);
+  box-shadow: 0 6px 28px #ffe0fa77;
+  border-color: #ffe066;
+}
+body.night .home-game-card {
+  background: #23213c;
+  color: #ffd2fc;
+  border-color: #6e6998;
+  box-shadow: 0 2px 16px #39345e77;
+}
+body.night .home-game-card:hover {
+  border-color: #ffe066;
+  box-shadow: 0 6px 24px #ffe06655;
+}
+.home-game-emoji {
+  font-size: 2em;
+  margin-bottom: 3px;
+  display: block;
+}
+.home-game-title {
+  color: #e84299;
+  font-weight: bold;
+  font-size: 1.15em;
+  margin-bottom: 3px;
+}
+.home-game-desc {
+  font-size: 0.98em;
+  color: #a4133c;
+  margin-bottom: 0;
+}
+body.night .home-game-title { color: #ffd2fc; }
+body.night .home-game-desc { color: #ffe066; }
+.melisa-bottom-msg {
+  background: #ffe066;
+  color: #a4133c;
+  padding: 12px 0;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 1.14em;
+  font-weight: bold;
+  margin-top: 10px;
+  box-shadow: 0 2px 10px #ffd2fc55;
+  border: 2px solid #ffd2fc;
+}
+body.night .melisa-bottom-msg {
+  background: #39345e;
+  color: #ffe066;
+  border-color: #6e6998;
+  box-shadow: 0 2px 10px #39345e77;
+}
+/* Oyun Bölümleri ve Responsive Kodlar */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 60vh;
+}
+.game-section {
+  display: none;
+  background: #fff9;
+  border-radius: 28px;
+  padding: 30px 24px 28px 24px;
+  margin: 30px auto;
+  box-shadow: 0 6px 32px #fcb69f90;
+  min-width: 320px;
+  max-width: 460px;
+  font-size: 1.12em;
+  width: 100%;
+}
+body.night .game-section {
+  background: #23213cde;
+  color: #f7eaff;
+  box-shadow: 0 6px 32px #22213c88;
+}
+.game-section.active { display: block; }
+.rules {
+  max-width: 420px;
+  margin: 0 auto 18px auto;
+  background: #fff6;
+  border-radius: 14px;
+  padding: 12px;
+  color: var(--text);
+  font-size: 1em;
+  text-align: center;
+}
+body.night .rules {
+  background: #39345e60;
+  color: #e9e6f8;
+}
+.game-footer {
+  margin-top: 15px;
+  text-align: center;
+}
+.restart-btn {
+  background: var(--accent2);
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 1.15em;
+  cursor: pointer;
+  margin-left: 8px;
+  box-shadow: 0 2px 8px #ffb6d540;
+  transition: background 0.2s, transform 0.13s;
+    /* Mevcut stilleriniz (padding, font-size, border, border-radius vb.) */
+    
+    display: block; /* Butonu kendi satırına al */
+    margin: 10px auto; /* Otomatik margin ile yatayda ortala */
+    
+    /* Örnek boyutlandırma, sizinkiler farklı olabilir: */
+    width: 40px; /* Genişlik vererek yuvarlaklığı koruyun */
+    height: 40px; /* Yükseklik vererek yuvarlaklığı koruyun */
+    display: flex; /* İçindeki '↻' sembolünü ortalamak için */
+    justify-content: center; /* Yatayda ortala */
+    align-items: center; /* Dikeyde ortala */
+}
+
+/* Eğer .game-container içinde text-align: center yoksa, onu da ekleyin veya emin olun varlığından. */
+/* Bu buton 'display: block' olduğunda bunun doğrudan etkisi olmaz ama genel düzen için önemli olabilir. */
+.game-container {
+    /* ... (diğer mevcut stilleriniz) ... */
+    text-align: center; /* Bu satır zaten varsa dokunmayın, yoksa ekleyebilirsiniz */
+}
+}
+.restart-btn:hover { background: var(--accent1); color: #fff; transform: scale(1.13);}
+.xox-footer-center {
+  justify-content: center;
+  display: flex;
+  margin-top: 18px;
+}
+.game-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 6px 0;
+}
+/* Renk Eşleştirme */
+#color-match-board {
+  display: grid;
+  grid-template-columns: repeat(4, 56px);
+  grid-template-rows: repeat(4, 56px);
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0 0 0;
+}
+.color-card {
+  width: 56px; height: 56px;
+  border-radius: 10px;
+  background: #eee;
+  font-size: 1.25em;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  border: 2px solid #ffb6d5;
+  transition: background 0.2s, transform 0.2s;
+  user-select: none;
+  box-shadow: 0 1px 8px #fcb6f6a0;
+}
+.color-card.open, .color-card.matched {
+  background: var(--card-color) !important;
+  box-shadow: 0 1px 12px #ffd2fc;
+}
+.color-card.open { transform: scale(1.09);}
+.color-card.matched { opacity: 0.6;}
+body.night .color-card { background: #39345e; border-color: #6e6998;}
+body.night .color-card.open, body.night .color-card.matched { box-shadow: 0 1px 12px #6e699877; }
+/* Balon Patlatma */
+#balloon-board {
+  display: grid;
+  grid-template-columns: repeat(5, 44px);
+  grid-template-rows: repeat(4, 56px);
+  gap: 14px;
+  justify-content: center;
+  margin: 10px 0 0 0;
+}
+.balloon {
+  width: 42px; height: 54px;
+  border-radius: 50% 50% 48% 48%/60% 60% 40% 40%;
+  background: #ffb6d5;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  font-size: 1.08em;
+  font-weight: bold;
+  color: #a4133c;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 10px #ffb6d580;
+  transition: transform 0.13s;
+}
+.balloon:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%; bottom: -7px;
+  width: 6px; height: 8px;
+  background: #fff7;
+  border-radius: 60% 70% 80% 80%;
+  transform: translateX(-50%) rotate(-14deg);
+}
+.balloon.pop { animation: balloon-pop .4s forwards; }
+@keyframes balloon-pop {
+  to { opacity:0; transform:scale(1.4); }
+}
+body.night .balloon { box-shadow: 0 2px 10px #22213c60; }
+/* Hayvan Bulma */
+#animal-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.animal-img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px #fcb69f80;
+  border: 3px solid #ffd2fc;
+  background: #fff;
+  margin-bottom: 14px;
+}
+body.night .animal-img { background: #2b2941; border-color: #6e6998; }
+#animal-options {
+  display: flex; gap: 12px; justify-content: center; margin: 9px 0;
+  flex-wrap: wrap;
+}
+.animal-btn {
+  background: var(--accent2);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1em;
+  padding: 7px 20px;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 4px;
+}
+.animal-btn:hover { background: var(--accent1); color: #fff;}
+body.night .animal-btn { background: #39345e; color: #f7eaff;}
+body.night .animal-btn:hover { background: #23213c; color: #fff; }
+/* Hafıza Oyunu */
+#memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, 56px);
+  grid-template-rows: repeat(4, 56px);
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0 0 0;
+}
+.memory-card {
+  width: 56px; height: 56px;
+  border-radius: 10px;
+  background: #eee;
+  font-size: 1.25em;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  border: 2px solid #ffb6d5;
+  transition: background 0.2s, transform 0.2s;
+  user-select: none;
+  box-shadow: 0 1px 8px #fcb6f6a0;
+}
+.memory-card.open, .memory-card.matched {
+  background: #fff !important;
+  color: #a4133c;
+}
+.memory-card.open { transform: scale(1.09);}
+.memory-card.matched { opacity: 0.6;}
+body.night .memory-card { background: #39345e; border-color: #6e6998;}
+body.night .memory-card.open, body.night .memory-card.matched { box-shadow: 0 1px 12px #6e699877; }
+/* XOX */
+.xox-rules {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 32px;
+  margin-bottom: 9px;
+  background: #ffe0fa55;
+  padding: 7px 0 6px 0;
+  border-radius: 15px;
+  box-shadow: 0 1px 6px #ffb6d523;
+}
+body.night .xox-rules { background: #39345e40; box-shadow: 0 1px 6px #23213c99;}
+.xox-mode-btn {
+  background: #fff7;
+  color: #e84299;
+  border: 1.5px solid #ffd2fc;
+  border-radius: 16px;
+  min-width: 90px;
+  height: 32px;
+  padding: 0 10px;
+  font-size: 1.04em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.12s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px #ffd2fc55;
+  outline: none;
+  margin: 0 2px;
+  position: relative;
+  letter-spacing: 0.01em;
+  gap: 6px;
+  border-radius: 18px;
+}
+.xox-mode-btn.active, .xox-mode-btn:focus {
+  background: #e84299;
+  color: #fff;
+  border-color: #ffb6d5;
+  box-shadow: 0 2px 6px #e8429922;
+}
+
+/* style.css dosyanızda body.fenerbahce bloğunun içine ekleyin */
+
+body.fenerbahce .xox-mode-btn.active,
+body.fenerbahce .xox-mode-btn:focus {
+  background: #FFFF00; /* Sarı renk */
+  color: #000033; /* Fenerbahçe mavisi veya koyu bir renk */
+  border-color: var(--border); /* Sarı kenarlık */
+  box-shadow: 0 2px 6px rgba(var(--accent1-rgb), 0.2); /* Sarı tonlarında gölge */
+}
+body.fenerbahce .xox-mode-btn {
+  color: var(--text); /* Lacivert renk için temanın --text değişkenini kullan */
+}
+
+/* Eğer hover durumunda da rengin lacivert kalmasını istiyorsanız */
+body.fenerbahce .xox-mode-btn:hover {
+background: #CCCC99; /* Sarı renk */
+  color: var(--text); /* Hover durumunda da lacivert kalır */
+}
+
+.xox-mode-btn:hover:not(.active) {
+  background: #ffd2fc;
+  color: #a4133c;
+}
+body.night .xox-mode-btn { background: #23213c; color: #f7eaff; border-color: #6e6998;}
+body.night .xox-mode-btn.active { background: #39345e; color: #ffd2fc; border-color: #ffd2fc; }
+#xox-board {
+  margin: 10px 0 8px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  grid-template-rows: repeat(3, 44px);
+  gap: 7px;
+  justify-content: center;
+}
+.xox-cell {
+  width: 44px; height: 44px;
+  font-size: 1.25em;
+  background: #fff;
+  border-radius: 10px;
+  color: #ff7272;
+  text-align: center;
+  line-height: 44px;
+  cursor: pointer;
+  border: 2px solid #ffd6d6;
+  transition: background 0.1s;
+  font-weight: bold;
+  box-shadow: 0 1px 4px #ffd2fc22;
+}
+.xox-cell.o { color: #2b7fff;}
+.xox-cell:hover { background: #fff0f0;}
+body.night .xox-cell { background: #39345e; border-color: #6e6998; color: #ffd2fc; }
+body.night .xox-cell.o { color: #7fcaff; }
+body.night .xox-cell:hover { background: #23213c; }
+/* Sudoku */
+#sudoku-board {
+  display: grid;
+  grid-template-columns: repeat(9, 28px);
+  grid-template-rows: repeat(9, 28px);
+  gap: 0;
+  justify-content: center;
+  margin: 10px 0;
+  background: #ffe0fa;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px #fcb69f40;
+  border: 3px solid #ffb6d5;
+  width: max-content;
+  max-width: 100vw;
+}
+.sudoku-cell {
+  width: 28px; height: 28px;
+  text-align: center;
+  font-size: 1em;
+  border: 1px solid #ffb6d5;
+  background: #fff;
+  border-radius: 0;
+  outline: none;
+  color: #d72660;
+  box-sizing: border-box;
+}
+body.night #sudoku-board { background: #23213c; border-color: #6e6998; box-shadow: 0 2px 10px #18172a60;}
+body.night .sudoku-cell { background: #39345e; border-color: #6e6998; color: #ffd2fc; }
+.sudoku-cell[readonly] {
+  background: #ffe8f3;
+  color: #b9678c;
+  font-weight: bold;
+}
+body.night .sudoku-cell[readonly] {
+  background: #23213c; color: #7fcaff; font-weight: bold;
+}
+.sudoku-cell { /* kutu kenarları JS ile override edilir */ }
+/* Labirent (Maze) */
+#maze-board {
+  display: grid;
+  grid-template-columns: repeat(9, 32px);
+  grid-template-rows: repeat(9, 32px);
+  gap: 2px;
+  justify-content: center;
+  margin: 10px 0 0 0;
+}
+.maze-cell {
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1.5px solid #ffd2fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  box-sizing: border-box;
+  transition: background 0.2s;
+}
+body.night .maze-cell { background: #39345e; border-color: #6e6998; }
+.maze-wall { background: #a4133c; border-color: #a4133c; }
+body.night .maze-wall { background: #1e1e2e; border-color: #39345e; }
+.maze-player { background: #ffe066 !important; border-color: #ffd2fc; animation: maze-blink 0.8s infinite;}
+@keyframes maze-blink { 0%,100%{box-shadow:0 0 0 #fff} 50%{box-shadow:0 0 11px #ffe066a0;} }
+.maze-exit { background: #7fff8f !important; border-color: #ffd2fc; }
+/* Renk Doldurma (Flood Fill) */
+#flood-board {
+  display: grid;
+  grid-template-columns: repeat(12, 26px);
+  grid-template-rows: repeat(12, 26px);
+  gap: 2px;
+  justify-content: center;
+  margin: 10px 0 0 0;
+}
+.flood-cell {
+  width: 26px; height: 26px;
+  border-radius: 4px;
+  border: 1px solid #ffd2fc;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: box-shadow 0.12s;
+}
+.flood-cell.selected {
+  box-shadow: 0 0 8px #ffd2fc;
+  outline: 2px solid #ffe066;
+}
+.flood-color-btns {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+  margin: 9px 0 0 0;
+}
+.flood-color-btn {
+  width: 30px; height: 30px; border-radius: 50%; border: 2px solid #ffd2fc;
+  cursor: pointer; outline: none; transition: border 0.13s, box-shadow 0.13s;
+  box-shadow: 0 2px 6px #ffd2fc33;
+  margin-bottom: 3px;
+}
+.flood-color-btn.selected, .flood-color-btn:focus { border: 3px solid #ffe066; box-shadow: 0 2px 10px #ffd2fc88; }
+body.night .flood-cell { border-color: #6e6998; }
+body.night .flood-color-btn { border-color: #6e6998; }
+body.night .flood-color-btn.selected, body.night .flood-color-btn:focus { border-color: #ffe066; }
+/* Overlay kutlama ve üzgün emoji yağmuru */
+#overlay-message {
+  position: fixed;
+  z-index: 9999;
+  left:0; top:0; width:100vw; height:100vh;
+  background: rgba(255, 240, 250, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  user-select: none;
+  cursor: pointer;
+}
+body.night #overlay-message { background: rgba(24, 23, 42, 0.98);}
+#overlay-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-bottom: 24px;
+}
+#overlay-title {
+  font-size: 2.2em;
+  color: #e84299;
+  font-family: 'Comic Sans MS', cursive;
+  margin-bottom: 12px;
+  font-weight:bold;
+  text-shadow: 0 2px 8px #ffd2fc;
+}
+body.night #overlay-title { color: #ffd2fc; text-shadow: 0 2px 8px #39345e;}
+#overlay-emoji {
+  font-size: 3.5em;
+  margin-bottom: 4px;
+}
+#confetti-canvas {
+  position: fixed;
+  left:0; top:0; width:100vw; height:100vh;
+  z-index: 1;
+  pointer-events: none;
+  display: none;
+}
+#sad-emoji-rain {
+  position: fixed;
+  left:0; top:0; width:100vw; height:100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+.sad-emoji {
+  position: absolute;
+  font-size: 2.2em;
+  pointer-events: none;
+  opacity: 0.96;
+  animation: sad-fall 1.7s linear forwards;
+}
+@keyframes sad-fall {
+  from { transform: translateY(-80px) rotate(-15deg);}
+  to   { transform: translateY(100vh) rotate(20deg);}
+}
+/* Responsive */
+@media (max-width:800px) {
+  .game-section { max-width: 99vw; min-width: 0; }
+  #color-match-board, #memory-board { grid-template-columns: repeat(4,13vw); grid-template-rows: repeat(4,13vw);}
+  .color-card, .memory-card { width:13vw;height:13vw; font-size:1em;}
+  #balloon-board { grid-template-columns: repeat(5,8vw); grid-template-rows: repeat(4,10vw);}
+  .balloon { width:8vw; height:10vw; font-size:1em;}
+  #xox-board { grid-template-columns: repeat(3, 11vw); grid-template-rows: repeat(3, 11vw);}
+  .xox-cell { width:11vw; height:11vw; font-size:1em; line-height:11vw;}
+  #sudoku-board { grid-template-columns: repeat(9, 5vw); grid-template-rows: repeat(9, 5vw);}
+  .sudoku-cell { width:5vw;height:5vw;font-size:1em;}
+  .animal-img { width:33vw; height:33vw; min-width:80px; min-height:80px;}
+  #animal-options { gap: 7vw;}
+  .animal-btn { font-size: 1em; padding: 5px 10vw; }
+  .home-btn, .mode-btn { margin-left: 8px; margin-right: 8px;}
+  header { font-size: 1.1em; }
+}
+@media (max-width: 600px) {
+  #maze-board { grid-template-columns: repeat(9, 6vw); grid-template-rows: repeat(9, 6vw);}
+  .maze-cell { width:6vw; height:6vw; font-size:1em;}
+  #flood-board { grid-template-columns: repeat(12, 5vw); grid-template-rows: repeat(12, 5vw);}
+  .flood-cell { width:5vw; height:5vw;}
+  .flood-color-btn { width:7vw; height:7vw; min-width:26px; min-height:26px;}
+}
+
+.yon-tuslari {
+  /* position: fixed; satırını tamamen SİL */
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.yon-tuslari button {
+  font-size: 30px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #ff8fcf;
+  color: white;
+}
+/* Fenerbahçe Teması */
+body.fenerbahce {
+  --bg1: #00236a; /* Koyu lacivert */
+  --bg2: #003399; /* Orta lacivert */
+  --accent1: #ffc72c; /* Sarı */
+  --accent2: #FFFF00; /* Açık sarı */
+  --border: #ffd700; /* Altın sarısı */
+  --text: #00236a; /* Beyaz yazı */
+  --header-bg: var(--bg1);
+  --header-text: #FFFF00;
+  --main-bg: linear-gradient(120deg, var(--bg1) 0%, var(--bg2) 100%);
+  background: var(--main-bg) !important;
+}
+
+body.fenerbahce .melisa-welcome-box {
+background:#FFFF00;
+}
+
+body.fenerbahce .melisa-welcome-box h2 {
+color:#00236a;
+}
+
+body.fenerbahce .melisa-welcome-msg {
+color:#00236a;
+}
+
+/* Fenerbahçe teması aktifken Fenerbahçe butonunun arka planını ayarla */
+.fenerbahce #fenerbahce-btn {
+  background: #00236a; /* Fenerbahçe sarısı */
+  color: var(--bg1); /* Fenerbahçe laciverti */
+  border-color: var(--bg1); /* Fenerbahçe laciverti çerçeve */
+}
+
+/* Fenerbahçe teması aktifken Fenerbahçe butonunun hover/active durumunu ayarla */
+.fenerbahce #fenerbahce-btn:hover,
+.fenerbahce #fenerbahce-btn.active {
+  background-color: var(--bg1); /* Hover/active'de lacivert */
+  color: var(--accent1); /* Yazı sarı */
+  border-color: var(--accent1); /* Sarı çerçeve */
+}
+
+/* Fenerbahçe teması aktifken müzik çalar stilini ayarla */
+.fenerbahce .muzik-oynatici-container {
+  background-color: var(--bg2); /* Orta lacivert */
+  border: 2px solid var(--accent1); /* Sarı çerçeve */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Gölgeyi biraz daha belirgin yapabiliriz */
+}
+
+.fenerbahce #sarkiAdi {
+  color: #FFFF00; /* Şarkı adı sarı */
+}
+
+.fenerbahce .muzik-kontrol-btn { /* Tüm kontrol butonları için genel bir sınıf varsayarak */
+  background-color: var(--accent1); /* Sarı */
+  color: var(--bg1); /* Koyu lacivert */
+  border: 1px solid var(--bg1); /* Koyu lacivert çerçeve */
+}
+
+.fenerbahce .muzik-kontrol-btn:hover {
+  background-color: var(--bg1); /* Hover'da lacivert */
+  color: var(--accent1); /* Yazı sarı */
+}
+
+/* İlerleme çubuğu ve ses seviyesi çubuğu stilleri */
+.fenerbahce #progress-bar,
+.fenerbahce #sesSeviyesiSlider {
+  background-color: var(--bg1); /* Çubuk arka planı koyu lacivert */
+  accent-color: var(--accent1); /* Doldurulan kısım sarı (tarayıcı desteğine göre) */
+}
+
+.fenerbahce #progress-bar::-webkit-slider-thumb,
+.fenerbahce #sesSeviyesiSlider::-webkit-slider-thumb {
+  background: var(--accent1); /* Başparmak sarı */
+  border: 1px solid var(--bg1); /* Başparmak çerçevesi koyu lacivert */
+}
+
+.fenerbahce #progress-bar::-moz-range-thumb,
+.fenerbahce #sesSeviyesiSlider::-moz-range-thumb {
+  background: var(--accent1); /* Başparmak sarı */
+  border: 1px solid var(--bg1); /* Başparmak çerçevesi koyu lacivert */
+}
+
+.fenerbahce .nav-game-btn {
+  background-color: var(--bg1); /* Navigasyon butonları koyu lacivert */
+  color: #FFFF00; /* Yazısı sarı */
+border: 2px solid #FFFF00;
+}
+
+.fenerbahce .nav-game-btn:hover {
+  background-color: #FFFF00; /* Hover'da orta lacivert */
+color: #000080; /* Yazısı sarı */
+border: 2px solid #000080;
+}
+
+.fenerbahce .dropdown-content .nav-game-btn {
+color: #000080
+}
+.fenerbahce .nav-game-btn.active {
+  background-color: #ffff00; /* Aktif navigasyon butonu sarı */
+  color: var(--bg1); /* Yazısı koyu lacivert */
+  box-shadow: 0 0 0 3px var(--bg1), 0 0 0 6px var(--accent1);
+}
+
+.fenerbahce .game-section {
+  background-color: var(--bg2); /* Oyun bölümü arka planı orta lacivert */
+}
+
+.fenerbahce .game-section h2 {
+  color: #FFFF00; /* Oyun başlıkları sarı */
+}
+
+.fenerbahce .rules {
+  color: #FFFF00; /* Kurallar beyaz */
+}
+
+.fenerbahce .game-footer span {
+  color: var(--accent1); /* Sonuç yazısı sarı */
+}
+
+
+.fenerbahce #guessMessage {
+  color: #FFFF00; /* Sonuç yazısı sarı */
+}
+.fenerbahce #previousGuesses {
+  color: #FFFF00; /* Sonuç yazısı sarı */
+}
+.fenerbahce  #guessCount {
+  color: #FFFF00; /* Sonuç yazısı sarı */
+}
+
+.fenerbahce .game-description {
+  color: #FFFF00; /* Sonuç yazısı sarı */
+}
+
+
+
+/* Fenerbahçe Teması için Ana Sayfa Oyun Kartları */
+body.fenerbahce .home-game-card {
+  background-color: #FFFF00; /* Kartların arka planını sarı yapar */
+  color: var(--bg1); /* Kartların içindeki yazı rengini koyu lacivert yapar */
+  border-color: var(--bg2); /* İsteğe bağlı: Kenarlık rengini orta lacivert yapabiliriz */
+}
+
+/* Kart başlıklarının (home-game-title) rengini de koyu lacivert yapalım */
+body.fenerbahce .home-game-card .home-game-title {
+  color: var(--bg1);
+}
+
+/* Kart açıklamalarının (home-game-desc) rengini de koyu lacivert yapalım */
+body.fenerbahce .home-game-card .home-game-desc {
+  color: var(--bg1);
+}
+
+/* Kartlardaki emojilerin (home-game-emoji) rengini de koyu lacivert yapalım */
+body.fenerbahce .home-game-card .home-game-emoji {
+  color: var(--bg1);
+}
+
+/* Fenerbahçe Teması için Alt Mesaj Kutusu */
+body.fenerbahce .melisa-bottom-msg {
+  background-color: #FFFF00; /* Arka planı sarı yapar */
+  color: var(--bg1); /* Yazı rengini koyu lacivert yapar */
+  border: 2px solid var(--bg2); /* İsteğe bağlı: Kenarlık rengini orta lacivert yapabiliriz */
+}
+
+/* İçindeki span elementinin de rengini koyu lacivert yapalım (emin olmak için) */
+body.fenerbahce .melisa-bottom-msg span {
+  color: var(--bg1);
+}
+
+.fenerbahce .restart-btn {
+  background-color: #FFFF00; /* Yeniden başlat butonu sarı */
+  color: var(--bg1); /* Yeniden başlat butonu yazısı lacivert */
+  border-color: var(--bg1); /* Yeniden başlat butonu çerçevesi lacivert */
+}
+
+.fenerbahce .memory-card {
+border-color:#FFFF00;
+}
+
+.fenerbahce #sudoku-board {
+border-color:#000080;
+}
+
+body.fenerbahce #section-about .content-box p,
+body.fenerbahce #section-contact .content-box p,
+body.fenerbahce #section-contact .content-box ul li {
+  color: yellow !important; /* Metin rengini sarı yapar */
+}
+
+.fenerbahce .sudoku-cell {
+border: 1px solid #000080;
+border-color:#000080;
+color: #000080;
+}
+.fenerbahce .sudoku-cell[readonly] {
+background: #FFFF00;
+border-color:#000080;
+
+font-weight: bold;
+}
+
+/* Fenerbahçe Teması için Melisa Hoş Geldin Mesajı Yazısı */
+body.fenerbahce .melisa-welcome-msg {
+  color: var(--bg1); /* Yazı rengini koyu lacivert yapar */
+}
+/* Diğer oyun detayları için örnekler - ihtiyaca göre ekleyebilirsiniz */
+.fenerbahce #color-match-board .color-card {
+  border-color: var(--accent1); /* Kart çerçeveleri sarı */
+}
+
+.fenerbahce #xox-board .xox-cell {
+  border-color: var(--accent1); /* XOX hücre çerçeveleri sarı */
+}
+
+.fenerbahce #sudoku-board .sudoku-cell {
+  border-color: #000080; /* Sudoku hücre çerçeveleri açık sarı */
+}
+
+.fenerbahce .muzik-oynatici-container {
+  background-color: var(--bg2); /* Müzik çalar arka planı orta lacivert */
+}
+
+.fenerbahce .kontroller button {
+background: #FFFF00;
+color:#000080;
+}
+
+
+.fenerbahce .kontroller button:hover {
+background: #FFFF00;
+color:#000080;
+transform: translateY(-2px);
+box-shadow: 2px 2px 5px rgba(255,255,0,0.4);
+border: 1px solid #000080;
+font-weight: bold;
+}
+
+.fenerbahce .ses-seviyesi-kontrol input[type="range"] {
+background: #FFFF00;
+}
+
+.fenerbahce .ses-seviyesi-kontrol input[type="range"]::-webkit-slider-thumb {
+background: #000080;
+}
+
+/* Mobil cihazlar için özel stiller (maksimum 478 piksel genişliğe kadar) */
+@media (max-width: 480px) {
+  /* Header (Üst Kısım) genel düzenlemesi */
+  header {
+    flex-direction: column; /* Öğeleri dikey olarak sırala (alt alta) */
+    align-items: center;    /* Öğeleri yatayda ortala */
+    padding: 15px 10px;     /* Üstten/alttan boşluk, yanlardan biraz boşluk */
+    height: auto;           /* İçeriğe göre yüksekliği otomatik ayarla */
+  }
+
+  /* Ana başlık (🎀 Melisa'nın Oyun Sitesi 🎀) */
+  .melisa-title {
+    font-size: 1.4em;       /* Başlık font boyutunu biraz büyüt ama çok aşırı olmasın */
+    text-align: center;     /* Başlığı ortala */
+    margin: 0 auto 10px auto; /* Üst/alt 10px boşluk, sağ/sol otomatik boşluk ile yatayda ortala */
+    max-width: 100%;        /* Genişliği maksimum yap, taşmayı engelle */
+    white-space: normal;    /* Gerekirse metnin alt satıra geçmesini sağla */
+    word-break: break-word; /* Uzun kelimelerin satır sonunu aşmasını engelle */
+    line-height: 1.3;       /* Satır aralığını ayarla */
+  }
+
+  /* Sol taraftaki "Ana Sayfa" butonu grubu */
+  .header-left {
+    width: 100%;            /* Tam genişlik kapla */
+    display: flex;          /* İçindeki butonu ortalamak için flex kullan */
+    justify-content: center; /* Butonu yatayda ortala */
+    align-items: center;    /* Butonu dikeyde ortala (eğer yüksekliği varsa) */
+    margin: 10px 0 0 0;     /* Üstten 10px boşluk, diğer margin'leri sıfırla */
+    order: 2;               /* Başlığın altına gelmesini sağla */
+  }
+  .home-btn {
+    font-size: 1em;         /* Buton metin boyutunu ayarla */
+    padding: 10px 20px;     /* Butonun iç boşluğunu ayarla */
+    margin: 0;              /* İçerideki butonun kendi margin'lerini sıfırla */
+  }
+
+  /* Sağ taraftaki tema ve mod butonları grubu */
+  .header-btns {
+    width: 100%;            /* Tam genişlik kapla */
+    display: flex;          /* İçindeki butonları yatayda düzenle */
+    justify-content: space-evenly; /* Butonları eşit boşluklarla dağıt */
+    gap: 8px;               /* Butonlar arasında boşluk bırak */
+    margin-top: 15px;       /* Üstteki başlık ve ana sayfa butonundan ayır */
+    order: 3;               /* En altta yer almasını sağla */
+  }
+
+  .theme-btn, .mode-btn, .theme-btna {
+    font-size: 1.2em;       /* Buton ikon/metin boyutunu biraz büyüt */
+    padding: 10px 12px;     /* Butonun iç boşluğunu ayarla */
+    flex-grow: 1;           /* Eşit genişlikte olmalarını sağla */
+    max-width: 90px;        /* Çok büyük olmalarını engelle */
+    min-width: 60px;        /* Çok küçük olmalarını engelle */
+    border-radius: 10px;    /* Köşeleri yuvarla */
+  }
+
+  /* Profil resmi ve altındaki boşluk (header dışı ama genel görünümü etkiler) */
+  .resim-kutusu {
+    margin-top: 15px;       /* Yukarıdan boşluğu biraz azalt */
+    margin-bottom: 15px;    /* Alttan boşluğu belirle */
+  }
+
+  .resim-kutusu img {
+    width: 120px;           /* Profil resmini küçült */
+    height: 120px;
+    border-width: 5px;      /* Çerçeve kalınlığını ayarla */
+  }
+}
+
+/* Hızlı Tıklama Oyunu */
+#section-quick-click {
+  text-align: center;
+  padding: 20px;
+}
+
+#quick-click-board {
+  margin: 30px auto;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--accent2);
+  border-radius: 50%; /* Yuvarlak alan */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  border: 3px solid var(--border);
+}
+
+#click-button {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--accent1);
+  color: var(--text);
+  font-size: 2em;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease-out, background-color 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+#click-button:hover {
+  background-color: #ffb86f; /* Hafif ton değişimi */
+  transform: scale(1.02);
+}
+
+#click-button:active {
+  transform: scale(0.98); /* Tıklamada küçülme efekti */
+  box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+}
+
+#quick-click-timer, #quick-click-count {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--text);
+}
+
+/* Gece modu için hızlı tıklama oyunu */
+body.night #quick-click-board {
+  background-color: #555;
+  border-color: #777;
+}
+
+body.night #click-button {
+  background-color: #444;
+  color: #eee;
+  box-shadow: 0 3px 10px rgba(255,255,255,0.1);
+}
+
+body.night #click-button:hover {
+  background-color: #666;
+}
+/* Sayı Tahmini Oyunu */
+#section-number-guessing {
+  text-align: center;
+  padding: 20px;
+}
+
+.number-guessing-controls {
+  background-color: var(--bg2);
+  border: 2px solid var(--border);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#guessMessage {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: var(--text);
+}
+
+#guessCount {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  color: var(--text);
+}
+
+#guessInput {
+  padding: 10px;
+  font-size: 1.1em;
+  border: 2px solid var(--accent1);
+  border-radius: 8px;
+  width: 150px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+#checkGuessBtn, #resetGuessBtn {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: var(--accent1);
+  color: white;
+  transition: background-color 0.2s ease;
+  margin: 5px;
+}
+
+#checkGuessBtn:hover, #resetGuessBtn:hover {
+  background-color: var(--text);
+}
+
+#previousGuesses {
+  font-weight: bold;
+  margin-top: 20px;
+  color: var(--text);
+}
+
+#previousGuessesList {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+#previousGuessesList li {
+  background-color: var(--accent2);
+  color: var(--text);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  border: 1px solid var(--border);
+}
+
+/* Tahmin mesajları için renkler */
+#guessMessage[style*="color: green"] {
+    color: #28a745 !important; /* Yeşil */
+}
+#guessMessage[style*="color: red"] {
+    color: #dc3545 !important; /* Kırmızı */
+}
+#guessMessage[style*="color: blue"] {
+    color: #007bff !important; /* Mavi */
+}
+#guessMessage[style*="color: orange"] {
+    color: #ffc107 !important; /* Turuncu */
+}
+
+/* --- Kim Kayboldu? Oyunu CSS --- */
+.whos-missing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    background-color: var(--accent2);
+    border-radius: 15px;
+    margin-top: 20px;
+    min-height: 120px; /* Emojiler kaybolunca boş kalmaması için */
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.whos-missing-item {
+    width: 90px;
+    height: 90px;
+    background-color: var(--bg1);
+    border: 3px solid var(--accent1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em; /* Emojilerin boyutu */
+    cursor: default;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    color: var(--text); /* Emoji rengi */
+}
+
+/* Kaybolan öğeyi temsil eden gizli stil */
+.whos-missing-item.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.whos-missing-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    padding: 15px;
+    background-color: var(--bg2);
+    border-radius: 15px;
+    border: 2px solid var(--border);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.whos-missing-option-button {
+    padding: 15px 25px;
+    font-size: 2.5em; /* Seçenek emojilerinin boyutu */
+    border: none;
+    border-radius: 12px;
+    background-color: var(--accent1);
+    color: white; /* Emoji rengi beyaz, kontrast için */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    min-width: 120px; /* Butonların minimum genişliği */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.whos-missing-option-button:hover {
+    background-color: var(--text);
+    transform: translateY(-2px);
+}
+
+.whos-missing-option-button:active {
+    transform: translateY(0);
+}
+
+.whos-missing-option-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Gece modu için özel stiller */
+body.night .whos-missing-item {
+    background-color: #333;
+    border-color: #555;
+    color: #eee;
+}
+
+body.night .whos-missing-grid {
+    background-color: #444;
+    border-color: #666;
+}
+
+body.night .whos-missing-options {
+    background-color: #555;
+    border-color: #777;
+}
+
+body.night .whos-missing-option-button {
+    background-color: #777;
+    color: #fff;
+}
+
+body.night .whos-missing-option-button:hover {
+    background-color: #999;
+}
+
+.home-game-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+
+/* --- Sıvı Ayırma Oyunu Stilleri --- */
+#liquid-sort-game-area {
+    display: flex;
+    flex-wrap: wrap; /* Tüplerin sığmazsa alt satıra geçmesini sağlar */
+    justify-content: center;
+    gap: 20px; /* Tüpler arasında boşluk */
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--bg2); /* Arka plan rengi */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 90%; /* Kapsayıcının maksimum genişliği */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.liquid-sort-tube {
+    width: 60px; /* Tüp genişliği */
+    height: 200px; /* Tüp yüksekliği */
+    border: 3px solid var(--text); /* Tüp çerçevesi */
+    border-top: none; /* Üstte çerçeve olmasın */
+    border-bottom-left-radius: 30px; /* Tüpün altı yuvarlak */
+    border-bottom-right-radius: 30px;
+    display: flex;
+    flex-direction: column-reverse; /* Sıvılar alttan dolsun */
+    justify-content: flex-start; /* Sıvılar altta biriksin */
+    overflow: hidden; /* Taşmayı engelle */
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, border-color 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.5); /* Tüpün içi yarı şeffaf beyaz */
+}
+
+.liquid-sort-tube.selected {
+    transform: translateY(-15px) scale(1.05); /* Seçili tüpü hafifçe kaldır ve büyüt */
+    border-color: #007bff; /* Seçili tüpün rengi */
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.6); /* Seçili tüpün parlak gölgesi */
+}
+
+.liquid-layer {
+    width: 100%;
+    height: 25%; /* Her bir sıvı katmanı tüpün %25'ini kaplasın (4 katman için) */
+    /* background-color belirlenir JS tarafından */
+    transition: background-color 0.3s ease;
+}
+
+.liquid-layer.empty {
+    background-color: transparent !important; /* Boş katman şeffaf olsun */
+}
+
+/* Gece modu için Sıvı Ayırma Oyunu stilleri */
+body.night #liquid-sort-game-area {
+    background-color: #39345e; /* Koyu arka plan */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.night .liquid-sort-tube {
+    border: 3px solid #f7eaff; /* Koyu modda tüp çerçevesi */
+    background-color: rgba(0, 0, 0, 0.3); /* Koyu modda tüp içi */
+}
+
+body.night .liquid-sort-tube.selected {
+    border-color: #6a0dad; /* Koyu modda seçili tüp rengi */
+    box-shadow: 0 0 15px rgba(106, 13, 173, 0.8); /* Koyu modda gölge */
+}
+
+/* Düşenleri Yakala Oyunu Özel Stilleri */
+#section-catch .game-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 420px; */ /* Canvas boyutu kadar boşluk bırakabiliriz */
+}
+
+#catch-game-canvas {
+  /* Canvas'a varsayılan bir border ve arka plan verebiliriz */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Fenerbahçe Teması için Düşenleri Yakala Oyunu Stilleri */
+body.fenerbahce #section-catch #catch-game-canvas {
+  background-color: var(--bg2); /* Orta lacivert arka plan */
+  border: 2px solid var(--accent1); /* Sarı kenarlık */
+}
+
+body.fenerbahce #section-catch .game-footer span {
+  color: var(--text); /* Skor yazısını koyu lacivert veya beyaz yapar */
+}
+
+body.fenerbahce .resim-kutusu img {
+border: 10px solid #FFFF00; /* Sarı kenarlık */
+}
+/* Mobil Kontrol Butonları için Stiller */
+.mobile-controls {
+  display: flex; /* Butonları yan yana yerleştir */
+  justify-content: center; /* Ortala */
+  gap: 20px; /* Butonlar arasına boşluk koy */
+  margin-top: 15px;
+  margin-bottom: 15px; /* Oyun sonu ve skor arasına boşluk */
+}
+
+.mobile-arrow-btn {
+  padding: 15px 30px;
+  font-size: 2em; /* Ok işaretlerini büyük yap */
+  background-color: var(--accent1); /* Temanın vurgu rengini kullan */
+  color: var(--bg1); /* Koyu metin rengi (lacivert veya varsayılan koyu) */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.mobile-arrow-btn:hover {
+  background-color: var(--accent2);
+}
+
+.mobile-arrow-btn:active {
+  transform: translateY(2px); /* Tıklayınca hafifçe aşağı kaysın */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Sadece mobil cihazlarda göster (isteğe bağlı, daha küçük ekranlar için) */
+@media (min-width: 768px) {
+  .mobile-controls {
+    display: none; /* Büyük ekranlarda gizle */
+  }
+}
+
+/* Fenerbahçe Teması için Mobil Buton Stilleri */
+body.fenerbahce .mobile-arrow-btn {
+  background-color: var(--accent1); /* Sarı */
+  color: var(--bg1); /* Koyu Lacivert */
+}
+
+body.fenerbahce .yon-tuslari button {
+background-color: #FFFF00;
+}
+body.fenerbahce .maze-wall {
+background-color: #FFFF00;
+}
+
+/* style.css dosyanıza ekleyin */
+
+@media only screen and (max-width: 600px) {
+  /* BODY etiketi için mobil ayarlamaları */
+  body {
+    width: 100vw; /* Sayfanın görünüm alanının (viewport) tam genişliğini almasını sağlar */
+    max-width: 100%; /* Genişliğin %100'ü geçmesini engeller */
+    overflow-x: hidden; /* Yatay kaydırmayı engeller */
+    padding: 0; /* body'nin varsayılan kenar boşluklarını kaldırır, bazen bu da daralmaya neden olabilir */
+  }
+
+  /* Ana sayfadaki oyun kartları listesi için stiller */
+  .home-game-list {
+    display: grid; /* Izgara düzenini etkinleştir */
+    grid-template-columns: repeat(2, 1fr); /* İki eşit genişlikte sütun oluştur */
+    gap: 15px; /* Kartlar arasında 15 piksel boşluk bırak */
+    padding: 10px; /* Liste etrafında hafif boşluk */
+    justify-items: center; /* Kartları ızgara içinde ortala */
+  }
+
+  .home-game-card {
+    /* Kartların mobil cihazlarda genişlik ayarı */
+    max-width: 100%; /* Sütun içinde kendi genişliğini almasını sağla */
+  }
+
+  /* En alttaki "Hoş geldin Melisa" mesajı için stil */
+  .melisa-bottom-msg {
+    font-size: 1.1em; /* Yazı boyutu ayarlı kalsın */
+    width: 100%; /* **Kapsayıcının ekranın tamamını kaplamasını sağlar** */
+    padding: 0 15px; /* **İçeriden yanlardan 15px boşluk bırakır (metnin kenara yapışmasını önler)** */
+    margin: 15px auto; /* **Üstten ve alttan 15px, yanlardan otomatik boşluk ile yatayda ortalar** */
+    text-align: center; /* Metni kutunun içinde ortalar */
+    box-sizing: border-box; /* Padding ve border'ın genişliğe dahil olmasını sağlar */
+  }
+}
+/* ==================================== */
+/* Labirent Oyunu - Yön Tuşları Stilleri */
+/* ==================================== */
+
+/* Mobil cihazlarda varsayılan olarak ok tuşlarını göster */
+.yon-tuslari {
+    display: flex; /* Butonları esnek kutu olarak hizala */
+    flex-direction: column; /* Dikey sıralama */
+    align-items: center; /* Yatayda ortala */
+    gap: 10px; /* Butonlar arası boşluk */
+    margin-top: 20px; /* Labirentten biraz boşluk bırak */
+    width: fit-content; /* İçeriği kadar genişlik */
+    margin-left: auto; /* Yatayda ortalamak için */
+    margin-right: auto; /* Yatayda ortalamak için */
+}
+
+.yon-tuslari div { /* İçteki div (sol, aşağı, sağ okları içeren) */
+    display: flex; /* İçindeki ok butonlarını yan yana hizala */
+    gap: 10px; /* Ok butonları arası boşluk */
+}
+
+.yon-tuslari button {
+    /* Mevcut tema değişkenlerini kullanarak buton stilleri */
+    background-color: var(--primary-btn-bg); /* Örneğin: var(--primary-btn-bg) */
+    color: var(--primary-btn-text); /* Örneğin: var(--primary-btn-text) */
+    border: none;
+    padding: 10px 10px; /* Daha büyük tıklama alanı */
+    border-radius: 75%; /* Yuvarlak butonlar */
+    font-size: 1.5em; /* Büyük ok işaretleri */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.yon-tuslari button:hover {
+    background-color: var(--primary-btn-hover-bg); /* Örneğin: var(--primary-btn-hover-bg) */
+    transform: translateY(-2px);
+}
+
+.yon-tuslari button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* MEDYA SORGUSU: Bilgisayar ekranları için ok tuşlarını gizle */
+@media (min-width: 768px) { /* Genişliği 768px ve daha büyük olan ekranlar için */
+    .yon-tuslari {
+        display: none; /* Ok tuşlarını tamamen gizle */
+    }
+}
+
+/* MEDYA SORGUSU: Mobil ekranlar için ok tuşlarını göster (Opsiyonel ama açıkça belirtmek iyi) */
+@media (max-width: 767px) { /* Genişliği 767px ve daha küçük olan ekranlar için */
+    .yon-tuslari {
+        display: flex; /* Ok tuşlarını göster */
+    }
+}
+/* Menü */
+#main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Ana menü öğeleri arası boşluk */
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 15px 20px;
+  background-color: var(--header-bg);
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Yeni Dropdown Stilleri */
+.dropdown-container {
+  position: relative; /* İçindeki açılır menüyü konumlandırmak için */
+  display: inline-block; /* Yan yana durmasını sağlar */
+}
+
+.dropdown-toggle-btn {
+  /* Oyunlar butonu için stil */
+  background-color: var(--primary-btn-bg);
+color:  white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body.fenerbahce .dropdown-toggle-btn {
+background-color: #00236a;
+  color:#FFFF00;
+}
+
+body.fenerbahce .dropdown-content {
+background-color: #FFFF00;
+  color:#00236a;
+}
+
+.dropdown-toggle-btn:hover {
+  background-color: var(--primary-btn-hover-bg);
+  transform: translateY(-2px);
+}
+
+.dropdown-content {
+  display: none; /* Varsayılan olarak gizle */
+  position: absolute;
+  background-color: var(--accent1); /* Açılır menü içeriğinin arka plan rengi */
+  min-width: 200px; /* Menünün minimum genişliği */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1000; /* Diğer elementlerin üstünde görünmesini sağlar */
+  border-radius: 8px;
+  padding: 10px;
+  flex-direction: column; /* İçindeki butonları alt alta sırala */
+  gap: 8px; /* Butonlar arası boşluk */
+  right: 0; /* Sağ hizalı açılır */
+  top: 100%; /* Butonun hemen altında başlar */
+  margin-top: 5px; /* Buton ile menü arasında boşluk */
+  max-height: 400px; /* Max yükseklik */
+  overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu çıkar */
+}
+
+/* Dropdown gösterildiğinde */
+.dropdown-container.show .dropdown-content {
+  display: flex; /* JavaScript ile 'show' sınıfı eklendiğinde göster */
+}
+
+/* Açılır menü içindeki oyun butonları için genel stil (mevcut nav-game-btn stilinden farklı olabilir) */
+.dropdown-content .nav-game-btn {
+  background-color: var(--secondary-btn-bg); /* Örneğin daha açık bir arka plan */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95em;
+  text-align: left; /* Buton metnini sola hizala */
+  width: 100%; /* Tüm genişliği kaplasın */
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content .nav-game-btn:hover {
+  background-color: var(--secondary-btn-hover-bg); /* Hover rengi */
+}
+
+/* Gökkuşağı temasında Hakkımda ve İletişim bölümlerindeki paragraflar */
+body.rainbow #section-about .content-box p,
+body.rainbow #section-contact .content-box p,
+body.rainbow #section-contact .content-box ul li {
+  color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
+}
+@keyframes rainbow-text {
+  0% { color: #ff0000; } /* Kırmızı */
+  14% { color: #ff7f00; } /* Turuncu */
+  28% { color: #ffff00; } /* Sarı */
+  42% { color: #00ff00; } /* Yeşil */
+  57% { color: #0000ff; } /* Mavi */
+  71% { color: #4b0082; } /* Indigo */
+  85% { color: #8b00ff; } /* Mor */
+  100% { color: #ff0000; } /* Döngü başı (Kırmızı) */
+}
+
+/* Gökkuşağı kenarlık animasyonu (isteğe bağlı) */
+@keyframes rainbow-border {
+  to { border-image-source: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red); }
+}
+.language-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 4px 12px #aaa;
+  z-index: 10;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 8px;
+}
+.language-dropdown-content.show {
+  display: block;
+}
+.language-selector-container {
+  position: relative;
+  display: inline-block;
+}
+.language-dropdown-content button {
+  display: block;
+  background: #ffd2fc;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 4px 0;
+  cursor: pointer;
+  font-weight: bold;
+  color: #a4133c;
+}
+.language-dropdown-content button:hover {
+  background: #ff8fcf;
+  color: white;
+}
+
+/* Tema uyumlu dil menüsü */
+body.fenerbahce .language-toggle-btn,
+body.fenerbahce .language-dropdown-content button {
+  background-color: #FFFF00;
+  color: #000033;
+}
+body.fenerbahce .language-dropdown-content button:hover {
+  background-color: #000033;
+  color: #FFFF00;
+}
+
+body.rainbow .language-toggle-btn,
+body.rainbow .language-dropdown-content button {
+  background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
+  color: #7c2ae8;
+  border: 2px solid #ffd700;
+}
+body.rainbow .language-dropdown-content button:hover {
+  background: #ffd700;
+  color: #fff;
+}
+
+/* style.css */
+
+/* Oyun Kural ve Butonlarını İçeren Kutu */
+.rules.xox-rules {
+  display: flex; /* İçindeki öğeleri esnek kutu yapar */
+  flex-direction: column; /* Öğeleri dikey olarak sıralar */
+  align-items: center; /* Öğeleri yatayda ortalar */
+  gap: 15px; /* Kural metni ile butonlar arasında boşluk bırakır */
+  /* Diğer mevcut .rules stilleri kalacak */
+  max-width: 420px;
+  margin: 0 auto 18px auto;
+  background: #fff6;
+  border-radius: 14px;
+  padding: 12px;
+  color: var(--text);
+  font-size: 1em;
+  /* text-align: center; kaldırılabilir, flex ile hallediliyor */
+}
+
+/* Kural Metni Paragrafı */
+#xox-rules-text {
+  text-align: center; /* Kural metnini kendi içinde ortalar */
+  margin-bottom: 0; /* flex gap kullandığımız için alt boşluğa gerek kalmaz */
+}
+
+/* Oyun Modu Butonları İçin Konumlandırma */
+/* Bu kısım, butonların .rules.xox-rules içinde yan yana durmasını ve ortalanmasını sağlar */
+.rules.xox-rules button {
+  /* Zaten .xox-mode-btn sınıfınız var, bu sadece ek hizalama için */
+  /* Mevcut .xox-mode-btn stilleri bu kuralla birleşecektir */
+  display: inline-block; /* Yan yana durmaları için */
+  vertical-align: middle; /* Dikey hizalama için */
+  /* margin: 0 5px; kalabilir, butonlar arası boşluğu sağlar */
+}
+
+/* Oyun Tahtasını İçeren Alan */
+.game-center {
+  display: flex; /* İçindeki öğeyi esnek kutu yapar */
+  justify-content: center; /* Öğeyi yatayda ortalar */
+  margin-top: 25px; /* Butonlar ile tahta arasına boşluk bırakır */
+}
+
+/* Yeniden Başlat Butonunu İçeren Alan */
+.game-footer {
+  text-align: center; /* Yeniden başlat butonunu ortalar */
+  margin-top: 25px; /* Oyun tahtası ile buton arasına boşluk bırakır */
+}
+
+/* Oyun Tahtası Stilini de Gözden Geçirelim (Eğer Yoksa Ekleyin) */
+#xox-board {
+  display: grid; /* Izgara düzeni */
+  grid-template-columns: repeat(3, 80px); /* 3 sütunlu, her biri 80px */
+  grid-template-rows: repeat(3, 80px); /* 3 satırlı, her biri 80px */
+  gap: 5px; /* Hücreler arası boşluk */
+  background-color: var(--accent1); /* Tahta arka plan rengi */
+  border-radius: 10px;
+  padding: 5px;
+  width: min-content; /* İçeriğine göre genişlik */
+  height: min-content; /* İçeriğine göre yükseklik */
+  margin: 0 auto; /* Tahtayı ortalar */
+}
+
+#xox-board div {
+  width: 80px;
+  height: 80px;
+  background-color: var(--accent2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  color: var(--text);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#xox-board div:hover {
+  background-color: var(--border);
+}
+
+#xox-board .xox-win {
+  background-color: #4CAF50; /* Kazanılan hücreler için yeşil arka plan */
+  color: white;
+}
