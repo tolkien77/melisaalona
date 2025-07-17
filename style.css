@@ -233,7 +233,8 @@ body.rainbow .theme-btn {
 }
 body.rainbow .nav-game-btn {
   background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
-  color: #fff;
+  color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
   border: 2px solid #ffd700;
   text-shadow: 0 1px 8px #2223;
 }
@@ -241,6 +242,10 @@ body.rainbow .nav-game-btn.active {
   background: #ffe066;
   color: #7c2ae8;
   border: 2px solid #b967ff;
+}
+
+body.rainbow .game-section {
+background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
 }
 
 body.rainbow .muzik-oynatici-container {
@@ -275,7 +280,7 @@ body.rainbow .melisa-welcome-box {
 background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
 }
 
-body.rainbow .melisa-welcome-box h2, {
+body.rainbow .melisa-welcome-box h2 {
 color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
   animation: rainbow-text 5s linear infinite;
 }
@@ -284,12 +289,31 @@ body.rainbow .melisa-welcome-msg {
 color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
   animation: rainbow-text 5s linear infinite;
 }
+
+body.rainbow .melisa-title {
+color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
+}
+
 body.rainbow .melisa-bottom-msg span {
 color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
   animation: rainbow-text 5s linear infinite;
 }
 
+body.rainbow .dropdown-content button span {
+    color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
+font-weight: bold !important;
+}
 
+body.rainbow .home-game-title {
+color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
+}
+body.rainbow .home-game-desc {
+color: #ff69b4; /* Başlangıç metin rengi (pembe gibi) */
+  animation: rainbow-text 5s linear infinite;
+}
 
 body.rainbow #main-nav,  {
 background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
@@ -1080,6 +1104,11 @@ color:#00236a;
   background-color: var(--bg1); /* Hover/active'de lacivert */
   color: var(--accent1); /* Yazı sarı */
   border-color: var(--accent1); /* Sarı çerçeve */
+}
+
+body.fenerbahce .dropdown-content button span {
+    color: #000080 !important; /* Koyu lacivert */
+font-weight: bold !important;
 }
 
 /* Fenerbahçe teması aktifken müzik çalar stilini ayarla */
