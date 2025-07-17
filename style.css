@@ -2047,6 +2047,10 @@ body.fenerbahce .language-dropdown-content button:hover {
   color: #FFFF00;
 }
 
+body.fenerbahce #xox-rules-text {
+    color: #FFFF00 !important; /* Altın sarısı, parlak bir sarı tonu */
+}
+
 body.rainbow .language-toggle-btn,
 body.rainbow .language-dropdown-content button {
   background: linear-gradient(90deg,#ff0000 0%,#ff9900 30%,#ffe066 50%,#0f0 65%,#7fcaff 80%,#b967ff 100%);
@@ -2142,4 +2146,15 @@ body.rainbow .language-dropdown-content button:hover {
 #xox-board .xox-win {
   background-color: #4CAF50; /* Kazanılan hücreler için yeşil arka plan */
   color: white;
+}
+
+/* Hedef Vurma Oyunu Canvas Stili */
+#target-click-game-area {
+    background-color: var(--background-light); /* Arkaplan rengi */
+    border-radius: 15px; /* Yuvarlatılmış köşeler */
+    width: 100%; /* Kapsayıcısına göre genişlik */
+    height: 300px; /* Belirli bir yükseklik verin, responsive olarak ayarlayabilirsiniz */
+    display: block; /* Blok element olarak davranmasını sağlar */
+    margin-top: 15px; /* Üstten boşluk */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* İç gölge */
 }

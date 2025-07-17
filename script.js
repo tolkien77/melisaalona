@@ -11,35 +11,60 @@ function showHome() {
 }
 
 function selectGame(game) {
-  document.querySelectorAll('.game-section').forEach(el => el.classList.remove('active'));
-  document.getElementById('section-' + game).classList.add('active');
-  // Tüm nav butonlarından ve dropdown içindeki butonlardan 'active' sınıfını kaldır
-  document.querySelectorAll('#main-nav button').forEach(el => el.classList.remove('active'));
-  document.getElementById('btn-' + game).classList.add('active'); // Tıklanan butona 'active' sınıfını ekle
+    // Önceki aktif oyun Hedef Vurma Oyunu ise, zamanlayıcılarını durdur
+    if (activeGameName === 'target-click') {
+        if (targetClickAnimationFrameId) {
+            cancelAnimationFrame(targetClickAnimationFrameId);
+            targetClickAnimationFrameId = null;
+        }
+        if (targetGenerationInterval) {
+            clearInterval(targetGenerationInterval);
+            targetGenerationInterval = null;
+        }
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+        }
+        targetClickActive = false; // Oyunun artık aktif olmadığını işaretle
+        // Oyun alanını temizle (eğer canvas ve context mevcutsa)
+        if (targetClickCtx && targetClickCanvas) {
+            targetClickCtx.clearRect(0, 0, targetClickCanvas.width, targetClickCanvas.height);
+        }
+    }
+    // Diğer oyunlar için de benzer temizlikler buraya eklenebilir (gerekiyorsa)
+    // Örneğin, memory oyununda showOverlay'den sonra initMemory çağrılıyor, burada özel bir temizliğe gerek yok.
+    // Ancak, sürekli çalışan bir animasyonu veya interval'i olan başka bir oyun eklerseniz,
+    // onun için de burada durdurma mantığı eklemeniz gerekir.
 
-  // Dropdown menüsünü kapat (oyun seçildikten sonra)
-  const dropdownContainer = document.querySelector('.dropdown-container');
-  if (dropdownContainer) {
-    dropdownContainer.classList.remove('show');
-  }
+    // Tüm oyun bölümlerini gizle
+    document.querySelectorAll('.game-section').forEach(el => el.classList.remove('active'));
+    document.getElementById('section-' + game).classList.add('active');
+    // Tüm nav butonlarından ve dropdown içindeki butonlardan 'active' sınıfını kaldır
+    document.querySelectorAll('#main-nav button').forEach(el => el.classList.remove('active'));
+    document.getElementById('btn-' + game).classList.add('active'); // Tıklanan butona 'active' sınıfını ekle
 
-	activeGameName = game;
+    // Dropdown menüsünü kapat (oyun seçildikten sonra)
+    const dropdownContainer = document.querySelector('.dropdown-container');
+    if (dropdownContainer) {
+        dropdownContainer.classList.remove('show');
+    }
 
-  // Oyun başlangıç fonksiyonları... (mevcut kodun devamı)
-  if (game === "color-match") initColorMatch();
-  if (game === "balloon") initBalloon();
-  if (game === "animal") initAnimal();
-  if (game === "memory") initMemory();
-  if (game === "xox") setXoxMode(true); // XOX'a geçildiğinde varsayılan olarak bilgisayara karşı modu başlar
-  if (game === "sudoku") initSudoku();
-  if (game === "maze") initMaze();
-  if (game === "flood") initFlood();
-  if (game === "number-guessing") initGuessGame();
-  if (game === "whos-missing") initWhosMissingGame();
-  if (game === "liquid-sort") initLiquidSortGame();
-  if (game === "catch") initCatchGame();
+    activeGameName = game; // Yeni aktif oyunu ayarla
+
+    // Oyun başlangıç fonksiyonları... (mevcut kodun devamı)
+    if (game === "color-match") initColorMatch();
+    if (game === "balloon") initBalloon();
+    if (game === "animal") initAnimal();
+    if (game === "memory") initMemory();
+    if (game === "xox") setXoxMode(true); // XOX'a geçildiğinde varsayılan olarak bilgisayara karşı modu başlar
+    if (game === "target-click") initTargetClick();
+    if (game === "maze") initMaze();
+    if (game === "flood") initFlood();
+    if (game === "number-guessing") initGuessGame();
+    if (game === "whos-missing") initWhosMissingGame();
+    if (game === "liquid-sort") initLiquidSortGame();
+    if (game === "catch") initCatchGame();
 }
-
 // --- Gece/Gündüz Modu ---
 function toggleMode() {
   const body = document.body;
@@ -141,6 +166,178 @@ function initColorMatch() {
     }
 }
 
+// --- Hedef Vurma Oyunu ---
+let targetClickCanvas;
+let targetClickCtx;
+let targetClickScore = 0;
+let targetClickTime = 30; // Oyun süresi saniye cinsinden
+let targetClickActive = false;
+let targetClickAnimationFrameId;
+let targetGenerationInterval;
+let countdownInterval;
+
+const TARGET_SIZE = 60; // Hedefin boyutu
+const TARGET_EMOJI = '🎯'; // Hedef emojisi
+
+function initTargetClick() {
+    // Önceki oyunun animasyonlarını ve zamanlayıcılarını temizle
+    if (targetClickAnimationFrameId) {
+        cancelAnimationFrame(targetClickAnimationFrameId);
+    }
+    if (targetGenerationInterval) {
+        clearInterval(targetGenerationInterval);
+    }
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+    }
+    clearOverlay(); // Eğer varsa üst katmanı temizle
+
+    targetClickCanvas = document.getElementById('target-click-game-area');
+    if (!targetClickCanvas) {
+        console.error("Hedef Vurma Oyunu alanı bulunamadı!");
+        return;
+    }
+
+    // Canvas boyutlarını dinamik olarak ayarla
+    targetClickCanvas.width = targetClickCanvas.offsetWidth;
+    targetClickCanvas.height = targetClickCanvas.offsetHeight;
+
+    targetClickCtx = targetClickCanvas.getContext('2d');
+
+    targetClickScore = 0;
+    targetClickTime = 33; // Her başlatıldığında süreyi sıfırla
+    targetClickActive = true;
+    
+    // Skor ve süre göstergelerini güncelle
+    const currentLang = localStorage.getItem("melisaLang") || "tr";
+    const t = diller[currentLang];
+    document.getElementById('target-click-score-display').textContent = `${t.targetClickScore} ${targetClickScore}`;
+    document.getElementById('target-click-time-display').textContent = `${t.targetClickTime} ${targetClickTime}`;
+    document.getElementById('target-click-result').textContent = ''; // Sonuç mesajını temizle
+
+    // Oyun alanını temizle
+    targetClickCtx.clearRect(0, 0, targetClickCanvas.width, targetClickCanvas.height);
+    
+    // Hedef oluşturma ve geri sayım başlat
+    targetGenerationInterval = setInterval(generateTarget, 3000); // Her 3 saniyede bir hedef oluştur
+    countdownInterval = setInterval(updateCountdown, 1000); // Her 1 saniyede bir geri sayım yap
+
+    // Canvas'a tıklama olay dinleyicisi ekle (sadece bir kez)
+    if (!targetClickCanvas.dataset.listenerAdded) {
+        // Masaüstü için tıklama olayı
+        targetClickCanvas.addEventListener('click', handleTargetClick);
+        // Mobil cihazlar için dokunmatik olay
+        targetClickCanvas.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Varsayılan kaydırma/yakınlaştırma davranışını engelle
+            // Dokunma olayını tıklama olayına dönüştürerek handleTargetClick'i çağır
+            // Dokunma koordinatlarını event objesine ekleyerek handleTargetClick'in doğru çalışmasını sağla
+            const touch = e.touches[0];
+            handleTargetClick({
+                clientX: touch.clientX,
+                clientY: touch.clientY,
+                target: targetClickCanvas, // Event objesine canvas'ı ekle
+                // Diğer gerekli özellikleri ekleyebilirsiniz, örneğin offsetX/Y
+                // Ancak getBoundingClientRect ile hesaplandığı için clientX/Y yeterli olacaktır.
+            });
+        });
+        targetClickCanvas.dataset.listenerAdded = 'true';
+    }
+
+    // Oyun döngüsünü başlat
+    gameLoopTargetClick();
+}
+
+// Hedef oluşturma fonksiyonu
+function generateTarget() {
+    if (!targetClickActive) return;
+
+    // Önceki hedefleri temizle (tek bir hedef olmasını istiyorsak)
+    targetClickCtx.clearRect(0, 0, targetClickCanvas.width, targetClickCanvas.height);
+
+    // Rastgele konumda yeni hedef çiz
+    const x = Math.random() * (targetClickCanvas.width - TARGET_SIZE);
+    const y = Math.random() * (targetClickCanvas.height - TARGET_SIZE);
+
+    targetClickCtx.font = `${TARGET_SIZE}px Arial`;
+    targetClickCtx.textAlign = 'center';
+    targetClickCtx.textBaseline = 'middle';
+    targetClickCtx.fillText(TARGET_EMOJI, x + TARGET_SIZE / 2, y + TARGET_SIZE / 2);
+
+    // Hedefin konumunu kaydet (tıklama kontrolü için)
+    targetClickCanvas.dataset.targetX = x;
+    targetClickCanvas.dataset.targetY = y;
+    targetClickCanvas.dataset.targetSize = TARGET_SIZE;
+}
+
+// Geri sayımı güncelleme fonksiyonu
+function updateCountdown() {
+    if (!targetClickActive) return;
+
+    targetClickTime--;
+    const currentLang = localStorage.getItem("melisaLang") || "tr";
+    const t = diller[currentLang];
+    document.getElementById('target-click-time-display').textContent = `${t.targetClickTime} ${targetClickTime}`;
+
+    if (targetClickTime <= 0) {
+        endTargetClickGame();
+    }
+}
+
+// Hedefe tıklama olayını yönetme
+function handleTargetClick(event) {
+    if (!targetClickActive) return;
+
+    const rect = targetClickCanvas.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const clickY = event.clientY - rect.top;
+
+    const targetX = parseFloat(targetClickCanvas.dataset.targetX);
+    const targetY = parseFloat(targetClickCanvas.dataset.targetY);
+    const targetSize = parseFloat(targetClickCanvas.dataset.targetSize);
+
+    // Tıklamanın hedefin içinde olup olmadığını kontrol et
+    if (clickX >= targetX && clickX <= targetX + targetSize &&
+        clickY >= targetY && clickY <= targetY + targetSize) {
+        
+        targetClickScore += 10; // Doğru tıklama, puan ekle
+        const currentLang = localStorage.getItem("melisaLang") || "tr";
+        const t = diller[currentLang];
+        document.getElementById('target-click-score-display').textContent = `${t.targetClickScore} ${targetClickScore}`;
+        
+        // Yeni bir hedef hemen oluştur
+        generateTarget();
+    } else {
+        // Yanlış tıklama, puan düşebilir veya bir ceza olabilir
+        targetClickScore -= 5; // Yanlış tıklama, puan düşür
+        if (targetClickScore < 0) targetClickScore = 0; // Puanın sıfırın altına düşmesini engelle
+        const currentLang = localStorage.getItem("melisaLang") || "tr";
+        const t = diller[currentLang];
+        document.getElementById('target-click-score-display').textContent = `${t.targetClickScore} ${targetClickScore}`;
+    }
+}
+
+// Oyun döngüsü (gerekmeyebilir, çünkü hedefler tıklamayla yeniden çiziliyor)
+function gameLoopTargetClick() {
+    // Bu oyunda sürekli bir animasyon yerine, tıklama olayına bağlı olarak çizim yapıyoruz.
+    // Bu fonksiyon sadece oyunun aktif olup olmadığını kontrol edebilir.
+    if (targetClickActive) {
+        targetClickAnimationFrameId = requestAnimationFrame(gameLoopTargetClick);
+    }
+}
+
+// Oyunu bitirme fonksiyonu
+function endTargetClickGame() {
+    targetClickActive = false;
+    clearInterval(targetGenerationInterval);
+    clearInterval(countdownInterval);
+    cancelAnimationFrame(targetClickAnimationFrameId);
+
+    const currentLang = localStorage.getItem("melisaLang") || "tr";
+    const t = diller[currentLang];
+
+    const finalMessage = t.targetClickGameOver + " " + t.targetClickYourScore.replace("%d", targetClickScore);
+    showOverlay("win", finalMessage, "🏆", initTargetClick); // Oyunu bitir ve sonucu göster
+}
 
 // --- Balon Patlatma ---
 function initBalloon() {
@@ -442,117 +639,6 @@ function initXox() {
       turn = "X";
     }
   }
-}
-
-// --- Sudoku: 5 farklı tablo, her yenilemede rastgele biri! ---
-const sudokuExamples = [
-  [
-    [5,3,"","",7,"","","",""],
-    [6,"","",1,9,5,"","",""],
-    ["",9,8,"","","","",6,""],
-    [8,"","","",6,"","","",3],
-    [4,"","",8,"",3,"","",1],
-    [7,"","","",2,"","","",6],
-    ["",6,"","","","",2,8,""],
-    ["","","",4,1,9,"","",5],
-    ["","","","",8,"","",7,9]
-  ],
-  [
-    ["",2,"",6,"","",8,"",""],
-    [5,8,"","","",9,7,"",""],
-    ["","",9,"",4,"","",1,""],
-    [6,"",2,"","","","",9,""],
-    ["",5,"","","",3,"","",8],
-    ["",4,"",9,"","","",5,""],
-    ["",9,"","","",7,"",8,""],
-    ["",7,"","",2,"","","",6],
-    ["",1,"",8,"","",4,"",""]
-  ],
-  [
-    [1,"","","",7,"",9,"",8],
-    ["",3,"",1,"",6,"",5,""],
-    ["",2,"",4,"","","",6,""],
-    ["",7,4,"",3,"",1,"",2],
-    ["",1,"",9,"",2,"",8,""],
-    [8,"",3,"",1,"",6,"",4],
-    ["",9,"","","",4,"",2,""],
-    ["",8,"",2,"",3,"",1,""],
-    [2,"","","",5,"",7,"",9]
-  ],
-  [
-    ["",6,"",1,"","","",8,""],
-    [2,"","",6,"",7,"",9,""],
-    ["",9,8,"","","",6,"",3],
-    ["",7,"","","",4,"",1,""],
-    ["",5,9,"",2,"",4,3,""],
-    ["",4,"",5,"","","",2,""],
-    [7,"",3,"","","",1,6,""],
-    ["",8,"",7,"",5,"","",4],
-    ["",1,"","","",9,"",7,""]
-  ],
-  [
-    ["",1,"","",8,"",3,"",""],
-    [6,"",3,"","","",1,"",5],
-    ["",9,"",3,"",2,"",8,""],
-    [8,"",7,"",6,"",4,"",1],
-    ["",4,"",8,"",1,"",5,""],
-    ["",6,"",9,"",7,"",2,""],
-    ["",2,"",5,"",9,"",7,""],
-    [1,"",6,"","","",8,"",4],
-    ["",7,"",4,"",8,"",9,""]
-  ]
-];
-function initSudoku() {
-  const board = document.getElementById('sudoku-board');
-  board.innerHTML = '';
-  let gridRaw = sudokuExamples[Math.floor(Math.random()*sudokuExamples.length)];
-  let grid = JSON.parse(JSON.stringify(gridRaw));
-  for(let r=0;r<9;r++){
-    for(let c=0;c<9;c++){
-      const inp = document.createElement('input');
-      inp.maxLength = 1;
-      inp.className = 'sudoku-cell';
-      // 3x3 kutu kenarları
-      if (r % 3 === 0) inp.style.borderTop = "2px solid #ff8fcf";
-      if (c % 3 === 0) inp.style.borderLeft = "2px solid #ff8fcf";
-      if (r === 8) inp.style.borderBottom = "2px solid #ff8fcf";
-      if (c === 8) inp.style.borderRight = "2px solid #ff8fcf";
-      if(grid[r][c]){
-        inp.value = grid[r][c];
-        inp.readOnly = true;
-      } else {
-        inp.value = '';
-        inp.oninput = function(){
-          let v = inp.value.replace(/[^1-9]/g, '');
-          inp.value = v;
-          grid[r][c] = v ? Number(v) : '';
-          if(checkSudoku(grid)){
-            showOverlay("win", "Tebrikler!", "🌿", initSudoku);
-          }
-        };
-      }
-      board.appendChild(inp);
-    }
-  }
-}
-function checkSudoku(grid){
-  for(let i=0;i<9;i++){
-    let row=new Set(), col=new Set();
-    for(let j=0;j<9;j++){
-      let r=grid[i][j], c=grid[j][i];
-      if(!r||row.has(r)) return false; row.add(r);
-      if(!c||col.has(c)) return false; col.add(c);
-    }
-  }
-  for(let br=0;br<3;br++)for(let bc=0;bc<3;bc++){
-    let box=new Set();
-    for(let r=0;r<3;r++)for(let c=0;c<3;c++){
-      let v=grid[3*br+r][3*bc+c];
-      if(!v||box.has(v)) return false;
-      box.add(v);
-    }
-  }
-  return true;
 }
 
 // --- Labirent Oyunu (Maze) ---
@@ -959,7 +1045,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initAnimal();
   initMemory();
   setXoxMode(false);
-  initSudoku();
   initMaze();
   initFlood();
   initGuessGame();
@@ -1617,6 +1702,18 @@ movesLabel: "Hamle: ",
     whosMissingNextBtn: "Sonraki Tur",
 whosMissingWin: "Bravo! Doğru Bildin!",
     whosMissingWrong: "Maalesef, Yanlış Cevap!",
+// YENİ EKLENECEK HEDEF VURMA OYUNU ÇEVİRİLERİ
+    targetClick: "Hedef Vurma Oyunu", // Oyunun menüdeki adı
+    targetClickTitle: "🎯 Hedef Vurma Oyunu", // Oyunun sayfa içi başlığı
+    rules_targetClick: "Ekranda beliren hedefe hızlıca tıkla! Süre dolmadan en yüksek puanı topla.", // Oyunun kuralları/açıklaması
+    targetClickScore: "Skor: ",
+    targetClickTime: "Süre: ",
+    targetClickStartBtn: "Oyunu Başlat",
+    targetClickGameOver: "Oyun Bitti!",
+    targetClickYourScore: "Skorun: %d", // %d yerine skor gelecek
+    targetClickHomeTitle: "Hedef Vurma",
+    targetClickHomeDesc: "Ekranda beliren hedeflere hızlıca tıkla.",
+
 
 // Sıvı Ayırma Oyunu için çeviriler
 liquidSortWin: "Tebrikler! Sıvıları Ayırdın!",
@@ -1748,6 +1845,18 @@ guessCorrectShort: "Виграв!", // BU SATIRI EKLEYİN!
 whosMissingWin: "Молодець! Правильно!", // "Bravo! Doğru Bildin!"
     whosMissingWrong: "На жаль, Невірна Відповідь!",
     whosMissingNextBtn: "Наступний раунд",
+// YENİ EKLENECEK HEDEF VURMA OYUNU ÇEVİRİLERİ
+    targetClick: "Гра «Влуч у ціль»", // "Hedef Vurma Oyunu"
+    targetClickTitle: "🎯 Гра «Влуч у ціль»", // "Hedef Vurma Oyunu"
+    rules_targetClick: "Швидко натискайте на ціль, що з'являється на екрані! Зберіть найбільшу кількість балів до закінчення часу.", // "Ekranda beliren hedefe hızlıca tıkla! Süre dolmadan en yüksek puanı topla."
+    targetClickScore: "Рахунок: ", // "Skor: "
+    targetClickTime: "Час: ", // "Süre: "
+    targetClickStartBtn: "Почати гру", // "Oyunu Başlat"
+    targetClickGameOver: "Гра закінчена!", // "Oyun Bitti!"
+    targetClickYourScore: "Ваш рахунок: %d", // "Skorun: %d"
+    targetClickHomeTitle: "Влуч у ціль", // "Hedef Vurma"
+    targetClickHomeDesc: "Швидко натискайте на цілі, що з'являються на екрані.", // "Ekranda beliren hedeflere hızlıca tıkla."
+
 // Sıvı Ayırma Oyunu için çeviriler
 liquidSortWin: "Вітаємо! Ви відсортували рідини!",
 liquidSort: "Сортування Рідини", // Oyunun menüdeki adı
@@ -1959,7 +2068,7 @@ function setLanguage(lang) {
     document.querySelector("#btn-animal span").textContent = t.animal;
     document.querySelector("#btn-memory span").textContent = t.memory;
     document.querySelector("#btn-xox span").textContent = t.xox;
-    document.querySelector("#btn-sudoku span").textContent = t.sudoku;
+    document.querySelector("#btn-target-click span").textContent = t.targetClick;
     const mazeNavBtn = document.querySelector("#btn-maze span");
     if (mazeNavBtn) {
         mazeNavBtn.textContent = t.maze;
@@ -1987,7 +2096,7 @@ function setLanguage(lang) {
     document.querySelector("#section-animal h2").textContent = "🐶 " + t.animal;
     document.querySelector("#section-memory h2").textContent = "🃏 " + t.memory;
     document.querySelector("#section-xox h2").textContent = "❌⭕ " + t.xox;
-    document.querySelector("#section-sudoku h2").textContent = "🌿 " + t.sudoku;
+    document.querySelector("#section-target-click h2").textContent = t.targetClickTitle;
     document.querySelector("#section-maze h2").textContent = "🌀 " + t.maze;
     document.querySelector("#section-flood h2").textContent = "🌈 " + t.flood;
     const numberGuessingH2 = document.querySelector("#section-number-guessing h2");
@@ -2002,7 +2111,10 @@ function setLanguage(lang) {
     document.querySelector("#section-animal .rules").textContent = t.rules_animal;
     document.querySelector("#section-memory .rules").textContent = t.rules_memory;
     document.querySelector("#xox-rules-text").textContent = t.rules_xox;
-    document.querySelector("#section-sudoku .rules").textContent = t.rules_sudoku;
+    const targetClickRulesElement = document.querySelector("#rules-target-click"); // <-- YENİ EKLENECEK SATIR
+if (targetClickRulesElement) { // Yeni eklenecek
+    targetClickRulesElement.textContent = t.rules_targetClick; // Yeni eklenecek
+}
     const mazeRulesElement = document.querySelector("#section-maze .rules");
     if (mazeRulesElement) {
         mazeRulesElement.textContent = t.rules_maze;
@@ -2038,7 +2150,7 @@ function setLanguage(lang) {
         { idTitle: "animal-home-title", idDesc: "animal-home-desc", keyTitle: "animalHomeTitle", keyDesc: "animalHomeDesc" },
         { idTitle: "memory-home-title", idDesc: "memory-home-desc", keyTitle: "memoryHomeTitle", keyDesc: "memoryHomeDesc" },
         { idTitle: "xox-home-title", idDesc: "xox-home-desc", keyTitle: "xoxHomeTitle", keyDesc: "xoxHomeDesc" },
-        { idTitle: "sudoku-home-title", idDesc: "sudoku-home-desc", keyTitle: "sudokuHomeTitle", keyDesc: "sudokuHomeDesc" },
+        { idTitle: "target-click-home-title", idDesc: "target-click-home-desc", keyTitle: "targetClickHomeTitle", keyDesc: "targetClickHomeDesc" },
         { idTitle: "maze-home-title", idDesc: "maze-home-desc", keyTitle: "mazeHomeTitle", keyDesc: "mazeHomeDesc" },
         { idTitle: "flood-home-title", idDesc: "flood-home-desc", keyTitle: "floodHomeTitle", keyDesc: "floodHomeDesc" },
         { idTitle: "number-guessing-home-title", idDesc: "number-guessing-home-desc", keyTitle: "numberGuessingHomeTitle", keyDesc: "numberGuessingHomeDesc" },

@@ -136,7 +136,8 @@
       <button onclick="selectGame('animal')" id="btn-animal" class="nav-game-btn" data-emoji="🐶">🐶<span>Hayvan Bulma</span></button>
       <button onclick="selectGame('memory')" id="btn-memory" class="nav-game-btn" data-emoji="🃏">🃏<span>Hafıza Oyunu</span></button>
       <button onclick="selectGame('xox')" id="btn-xox" class="nav-game-btn" data-emoji="❌⭕">❌⭕<span>XOX</span></button>
-      <button onclick="selectGame('sudoku')" id="btn-sudoku" class="nav-game-btn" data-emoji="🌿">🌿<span>Sudoku</span></button>
+      <button onclick="selectGame('target-click')" id="btn-target-click" class="nav-game-btn" data-emoji="🎯">🎯<span>Hedef Vurma Oyunu</span></button> <!-- YENİ OYUN BUTONU -->
+      
       <button onclick="selectGame('maze')" id="btn-maze" class="nav-game-btn" data-emoji="🌀">🌀<span>Labirent</span></button>
       <button onclick="selectGame('flood')" id="btn-flood" class="nav-game-btn" data-emoji="🌈">🌈<span>Renk Doldurma</span></button>
       <button onclick="selectGame('number-guessing')" id="btn-number-guessing" class="nav-game-btn" data-emoji="🔢">🔢<span>Sayı Tahmini</span></button>
@@ -198,10 +199,10 @@
         <div id="xox-home-title" class="home-game-title">XOX</div>
         <div id="xox-home-desc" class="home-game-desc">Sırayla X ve O koy, üçlü yap veya bilgisayara karşı oyna.</div>
     </div>
-    <div class="home-game-card" onclick="selectGame('sudoku')">
-        <span class="home-game-emoji">🌿</span>
-        <div id="sudoku-home-title" class="home-game-title">Sudoku</div>
-        <div id="sudoku-home-desc" class="home-game-desc">Rakamları doğru yerleştir.</div>
+    <div class="home-game-card" onclick="selectGame('target-click')"> <!-- YENİ OYUN KARTI -->
+        <span class="home-game-emoji">🎯</span>
+        <div id="target-click-home-title" class="home-game-title">Hedef Vurma</div>
+        <div id="target-click-home-desc" class="home-game-desc">Ekranda beliren hedeflere hızlıca tıkla.</div>
     </div>
     <div class="home-game-card" onclick="selectGame('maze')">
         <span class="home-game-emoji">🌀</span>
@@ -289,16 +290,23 @@
         <button class="restart-btn" onclick="initXox()" title="Yeniden Başlat">↻</button>
     </div>
 </section>
-    <section class="game-section" id="section-sudoku">
-      <h2>🌿 Sudoku</h2>
-      <div class="rules">Rakamları doğru yerleştir!</div>
-      <div class="game-center"><div id="sudoku-board"></div></div>
-      <div class="game-footer">
-        <span id="sudoku-result"></span>
-        <button class="restart-btn" onclick="initSudoku()" title="Yeniden Başlat">↻</button>
-      </div>
+<section class="game-section" id="section-target-click">
+        <h2 id="target-click-title">🎯 Hedef Vurma Oyunu</h2>
+        <div class="rules" id="rules-target-click">Ekranda beliren hedefe hızlıca tıkla! Süre dolmadan en yüksek puanı topla.</div>
+        <div class="game-center">
+            <canvas id="target-click-game-area"></canvas>
+        </div>
+        <div class="game-footer">
+            <div class="target-click-info"> <!-- BURAYA TAŞINDI -->
+                <span id="target-click-score-display">Skor: 0</span>
+                <span id="target-click-time-display">Süre: 30</span>
+            </div>
+            <span id="target-click-result"></span> <!-- Sonuç mesajı için -->
+            <button id="target-click-start-btn" class="restart-btn" onclick="initTargetClick()" title="Oyunu Başlat">↻</button>
+        </div>
     </section>
-    <section class="game-section" id="section-maze">
+
+<section class="game-section" id="section-maze">
       <h2>🌀 Labirent</h2>
       <div class="rules">Ok tuşları ile karakteri çıkışa ulaştır! <span>Duvara çarparsan başa dönersin.</span></div>
       <div class="game-center"><div id="maze-board"></div></div>
