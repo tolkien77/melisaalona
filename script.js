@@ -1650,7 +1650,7 @@ const diller = {
     about: "🙋‍♀️ Hakkımda",
     contact: "📧 İletişim",
     aboutTitle: "🙋‍♀️ Hakkımda", // "Hakkımda" başlığı
-    aboutContent: "Merhaba! Ben Melisa. Bu siteyi hobilerimi ve favori oyunlarımı paylaşmak için babama yaptırdım. Boş zamanlarımda oyunlar oynamayı, videolar izlemeyi çok severim. Ve pembe renge bayılırım. Umarım sitemdeki oyunlardan keyif alırsınız!", // "Hakkımda" paragraf içeriği
+    aboutContent: "Ben Melisa. Bu siteyi hobilerimi ve favori oyunlarımı paylaşmak için oluşturdum. Boş zamanlarımda kod yazmayı, yeni oyunlar denemeyi ve pembe renkli her şeyi keşfetmeyi severim. Umarım sitemdeki oyunlardan keyif alırsın!", // "Hakkımda" paragraf içeriği
 // İletişim bölümü için çeviriler (YENİ EKLENENLER)
     contactTitle: "📧 İletişim",
     contactP1: "Benimle iletişime geçmek istersen, aşağıdaki yolları kullanabilirsin:",
@@ -1790,7 +1790,7 @@ musicPlayerNext: "Sonraki ➡️", // "Sonraki" butonu metni
     about: "🙋‍♀️ Про Мене",
     contact: "📧 Зв'язок",
     aboutTitle: "🙋‍♀️ Про мене", // "Hakkımda" başlığı
-    aboutContent: "Привіт! Я Меліса. Цей сайт зробив мені тато, щоб я могла ділитися своїми хобі та улюбленими іграми. У вільний час я дуже люблю грати в ігри та дивитися відео. І я обожнюю рожевий колір. Сподіваюся, вам сподобаються ігри на моєму сайті!", // "Hakkımda" paragraf içeriği
+    aboutContent: "Привіт! Я Меліса. Я створила цей сайт, щоб поділитися своїми хобі та улюбленими іграми. У вільний час я люблю писати код, пробувати нові ігри та досліджувати все рожеве. Сподіваюся, вам сподобаються ігри на моєму сайті!", // "Hakkımda" paragraf içeriği
 // İletişim bölümü için çeviriler (YENİ EKLENENLER)
     contactTitle: "📧 Зв'язок",
     contactP1: "Якщо ви хочете зв'язатися зі мною, ви можете скористатися наступними способами:",
